@@ -9,6 +9,20 @@
 
 ---
 
+# <span style="color: #1E88E5;">Disruption Types</span>
+
+| Disruption Type | Example Scenario | Impact |
+|-----------------|------------------|--------|
+| Environmental | Severe rainfall causing waterlogging in delivery zones | Deliveries halted |
+| Environmental | Heatwave with temperature exceeding safe outdoor limits | Reduced working hours |
+| Environmental | Hazardous AQI levels due to pollution | Outdoor work unsafe |
+| Social | Local protest blocks restaurant access roads | Pickup locations inaccessible |
+| Social | City curfew or police barricades | Delivery zones restricted |
+| Infrastructure | Internet shutdown in region | Platform connectivity lost |
+| Infrastructure | Major road closure due to construction or accident | Delivery routes blocked |
+
+---
+
 # <span style="color: #1E88E5;">Delivery Persona</span>
 
 ## <span style="color: #2196F3;">Persona: Food Delivery Partner (Swiggy / Zomato)</span>
@@ -35,6 +49,33 @@ Types of delivery workers:
 - **Anil (Casual Rider):** Logs in primarily on weekends for extra cash. A sudden internet shutdown in his zone completely derails his already limited window of earning opportunity.
 
 Income loss occurs when unpredictably these disruptions prevent them from working.
+
+---
+
+# <span style="color: #1E88E5;">Weekly Premium Model</span>
+
+DeliverNET's dynamic weekly premium and disruption payouts are determined by parameters like **worker type (Hustler: 1.5x, Part-time: 1.0x, Casual: 0.7x), delivery zone risk, seasonal risks, and historical earnings.**
+
+### <span style="color: #2196F3;">Calculations at a Glance</span>
+
+> **Weekly Premium:**  
+> `~1% of Average Weekly Earnings`  
+> _(e.g., Full-time earning ₹5000/week pays ₹50 premium)_
+>
+> **Disruption Payout:**  
+> `Proportional to Daily Earnings (Weekly / 7) × Severity`  
+> _(e.g., [₹5000 / 7] × 0.8 severe disruption ≈ ₹570 payout)_
+
+*(Note: Payouts automatically scale within the defined worker type tier.)*
+
+### <span style="color: #2196F3;">Coverage Tiers Example</span>
+
+| Worker Type | Earnings Range | Weekly Premium | Coverage per Event |
+| ----------- | -------------- | -------------- | ------------------ |
+| Casual      | ₹1500–2500     | ₹15 – ₹25      | ₹100 – ₹200        |
+| Part-time   | ₹2500–4000     | ₹25 – ₹40      | ₹200 – ₹350        |
+| Full-time   | ₹4000–7000     | ₹40 – ₹70      | ₹350 – ₹600        |
+
 
 ---
 
@@ -89,47 +130,6 @@ Income loss occurs when unpredictably these disruptions prevent them from workin
 
 ---
 
-# <span style="color: #1E88E5;">Disruption Types</span>
-
-| Disruption Type | Example Scenario | Impact |
-|-----------------|------------------|--------|
-| Environmental | Severe rainfall causing waterlogging in delivery zones | Deliveries halted |
-| Environmental | Heatwave with temperature exceeding safe outdoor limits | Reduced working hours |
-| Environmental | Hazardous AQI levels due to pollution | Outdoor work unsafe |
-| Social | Local protest blocks restaurant access roads | Pickup locations inaccessible |
-| Social | City curfew or police barricades | Delivery zones restricted |
-| Infrastructure | Internet shutdown in region | Platform connectivity lost |
-| Infrastructure | Major road closure due to construction or accident | Delivery routes blocked |
-
----
-
-# <span style="color: #1E88E5;">Weekly Premium Model</span>
-
-DeliverNET's dynamic weekly premium and disruption payouts are determined by parameters like **worker type (Hustler: 1.5x, Part-time: 1.0x, Casual: 0.7x), delivery zone risk, seasonal risks, and historical earnings.**
-
-### <span style="color: #2196F3;">Calculations at a Glance</span>
-
-> **Weekly Premium:**  
-> `~1% of Average Weekly Earnings`  
-> _(e.g., Full-time earning ₹5000/week pays ₹50 premium)_
->
-> **Disruption Payout:**  
-> `Proportional to Daily Earnings (Weekly / 7) × Severity`  
-> _(e.g., [₹5000 / 7] × 0.8 severe disruption ≈ ₹570 payout)_
-
-*(Note: Payouts automatically scale within the defined worker type tier.)*
-
-### <span style="color: #2196F3;">Coverage Tiers Example</span>
-
-| Worker Type | Earnings Range | Weekly Premium | Coverage per Event |
-| ----------- | -------------- | -------------- | ------------------ |
-| Casual      | ₹1500–2500     | ₹15 – ₹25      | ₹100 – ₹200        |
-| Part-time   | ₹2500–4000     | ₹25 – ₹40      | ₹200 – ₹350        |
-| Full-time   | ₹4000–7000     | ₹40 – ₹70      | ₹350 – ₹600        |
-
-
----
-
 # <span style="color: #1E88E5;">Parametric Trigger System</span>
 
 DeliverNET uses **multi-gate parametric validation**.
@@ -168,41 +168,6 @@ When an authority geofence is activated:
 - Acts as a high-priority override, instantly verifying the disruption without needing secondary external API confirmation.
 
 Only if **these gates confirm disruption**, payouts are triggered.
-
----
-
-# <span style="color: #1E88E5;">Platform Data Example</span>
-
-Platform activity signals are simulated using APIs.
-
-Example event streams:
-
-```json
-// Swiggy sends:
-{"worker_hash": "D9F3X7...", "platform": "swiggy", "status": "offline", "zone": "andheri_east_3"}
-
-// Zomato sends:
-{"worker_hash": "D9F3X7...", "platform": "zomato", "status": "offline", "zone": "andheri_east_3"}
-```
-
-These signals help detect **mass activity drops in specific zones**.
-
----
-
-# <span style="color: #1E88E5;">Mobile Platform Justification</span>
-
-DeliverNET is designed as a **mobile-first platform**.
-
-Reasons:
-
-- Delivery workers primarily operate using smartphones
-- Enables real-time notifications
-- Allows continuous activity tracking
-- Simplifies permission management (location, movement, network)
-- Enables instant payout alerts
-- Allows background disruption monitoring
-
-Mobile integration ensures **minimal friction for workers**.
 
 ---
 
@@ -260,6 +225,41 @@ Agent:   Analyzing... Location confirmed. Activity dropped to 0. 6 other riders 
 
 ---
 
+# <span style="color: #1E88E5;">Platform Data Example</span>
+
+Platform activity signals are simulated using APIs.
+
+Example event streams:
+
+```json
+// Swiggy sends:
+{"worker_hash": "D9F3X7...", "platform": "swiggy", "status": "offline", "zone": "andheri_east_3"}
+
+// Zomato sends:
+{"worker_hash": "D9F3X7...", "platform": "zomato", "status": "offline", "zone": "andheri_east_3"}
+```
+
+These signals help detect **mass activity drops in specific zones**.
+
+---
+
+# <span style="color: #1E88E5;">Mobile Platform Justification</span>
+
+DeliverNET is designed as a **mobile-first platform**.
+
+Reasons:
+
+- Delivery workers primarily operate using smartphones
+- Enables real-time notifications
+- Allows continuous activity tracking
+- Simplifies permission management (location, movement, network)
+- Enables instant payout alerts
+- Allows background disruption monitoring
+
+Mobile integration ensures **minimal friction for workers**.
+
+---
+
 # <span style="color: #1E88E5;">Edge Case Handling</span>
 
 ### <span style="color: #42A5F5;">Scenario</span>
@@ -306,6 +306,12 @@ Coverage paused until next earning cycle.
 
 ---
 
+# <span style="color: #1E88E5;">Project Name</span>
+
+**DeliverNET**: Network for Earnings Trust
+
+---
+
 # <span style="color: #1E88E5;">Development Plan</span>
 
 ### <span style="color: #42A5F5;">Phase 1 – Ideation</span>
@@ -332,9 +338,3 @@ Coverage paused until next earning cycle.
 - Fraud detection system
 - Instant payout simulation
 - Analytics dashboards
-
----
-
-# <span style="color: #1E88E5;">Project Name</span>
-
-**DeliverNET**: Network for Earnings Trust
