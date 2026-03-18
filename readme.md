@@ -167,7 +167,13 @@ When an authority geofence is activated:
 - Riders pinging from within the boundary are automatically classified under a valid disruption.
 - Acts as a high-priority override, instantly verifying the disruption without needing secondary external API confirmation.
 
-Only if **these gates confirm disruption**, payouts are triggered.
+---
+
+## <span style="color: #2196F3;">Gate 4: Behavioral Trust Layer (Market Crash Scenario Update)</span>
+
+An AI-driven fraud detection layer evaluating movement heuristics, sensor telemetry, and network footprints to flag coordinated GPS-spoofing attempts.
+
+Only if **all relevant gates confirm disruption**, payouts are triggered.
 
 ---
 
@@ -240,6 +246,51 @@ Example event streams:
 ```
 
 These signals help detect **mass activity drops in specific zones**.
+
+---
+
+# <span style="color: #1E88E5;">Adversarial Defense & Anti-Spoofing Strategy (Market Crash Scenario Update)</span>
+
+DeliverNET operates in adversarial environments facing GPS spoofing and multi-account abuse. We employ a **multi-layered behavioral intelligence system** using continuous **Behavioral Trajectory Mapping**.
+
+### <span style="color: #2196F3;">1. Genuine Worker vs. Spoofed Actor</span>
+
+Our AI evaluates **behavioral consistency**. Genuine workers display active interactions and "distressed micro-mobility" (e.g., drifting under shelter). Spoofers show rigid stationarity, flawless teleportation, and zero delivery logic. 
+
+DeliverNET assigns a strict **Trust Score**:
+```text
+Trust Score = f(mobility_signature, sensor_telemetry, platform_events, anomaly_score)
+```
+Scores below the threshold flag the claim for secondary review.
+
+### <span style="color: #2196F3;">2. Multi-Dimensional Data Fusion</span>
+
+We fuse multi-modal signals to detect fraud syndicates:
+- **Sensor Telemetry:** Barometric drops matching storms; phone orientation anomalies.
+- **Network Footprints:** BSSID clustering (multiple "stranded" workers on the same router).
+- **Hardware/Device Integrity:** Synchronized AC power charging; emulator flags.
+- **Platform Correlation:** Synchronized screen-touch heatmaps.
+
+### <span style="color: #2196F3;">3. Coordinated Fraud Ring Detection</span>
+
+DeliverNET uses **cluster anomaly detection** (Isolation Forest, DBSCAN).
+
+**Example Sequence:**
+```text
+→ 120 workers claim "heavy rain"
+→ Weather API shows normal conditions
+→ Workers show identical location jump patterns and the same BSSID
+→ System Action: Flag as Coordinated Fraud Cluster → Freeze Payouts → Alert Admin
+```
+
+### <span style="color: #2196F3;">4. The UX Balance & Continuous Learning</span>
+
+Honest workers shouldn't be penalized for connectivity drops. Flagged claims enter a **Smart Review Workflow**:
+- **No Instant Denial:** Payouts are delayed with a transparent UI notification (*"Claim under Smart Review"*).
+- **Proof of Life:** When the network returns, workers provide a low-friction contextual photo. Honest workers easily clear the check and receive an apology trust bonus. Spoofers are quarantined.
+
+Every fraud attempt trains our anomaly datasets. 
+**Core Philosophy:** DeliverNET does not trust **what the user says**—it trusts **how the user behaves over time.**
 
 ---
 
